@@ -3,12 +3,12 @@
 import Users from '../model/user'
 
 // get : http://localhost:3000/api/users
-export async function getUsers(req, res){
+export async function getUsers(req, res) {
     try {
         const users = await Users.find({})
 
-        if(!users) return res.status(404).json( { error: "Data not Found"})
-        res.status(200).json(users)
+        if (!users) return res.status(404).json({ error: "Data not Found" })
+        return res.status(200).json(users)
     } catch (error) {
         console.error(error)
         res.status(404).json({ error: "Error While Fetching Data" })
@@ -16,22 +16,22 @@ export async function getUsers(req, res){
 }
 
 // get : http://localhost:3000/api/users/1
-export async function getUser(req, res){
+export async function getUser(req, res) {
     try {
         const { userId } = req.query;
 
-        if(userId){
+        if (userId) {
             const user = await Users.findById(userId);
-            res.status(200).json(user)
+            return res.status(200).json(user)
         }
-        res.status(404).json({ error : "User not Selected...!"});
+        res.status(404).json({ error: "User not Selected...!" });
     } catch (error) {
-        res.status(404).json({ error: "Cannot get the User...!"})
+        res.status(404).json({ error: "Cannot get the User...!" })
     }
 }
 
 // post : http://localhost:3000/api/users
-export async function postUser(req, res){
+export async function postUser(req, res) {
     try {
         const formData = req.body;
         if (!formData) return res.status(404).json({ error: "Form Data Not Provided...!" });
@@ -45,32 +45,32 @@ export async function postUser(req, res){
 }
 
 // put : http://localhost:3000/api/users/1
-export async function putUser(req, res){
+export async function putUser(req, res) {
     try {
         const { userId } = req.query;
         const formData = req.body;
 
-        if(userId && formData){
+        if (userId && formData) {
             const user = await Users.findByIdAndUpdate(userId, formData);
-            res.status(200).json(user)
+            return res.status(200).json(user)
         }
-        res.status(404).json( { error: "User Not Selected...!"})
+        res.status(404).json({ error: "User Not Selected...!" })
     } catch (error) {
-        res.status(404).json({ error: "Error While Updating the Data...!"})
+        res.status(404).json({ error: "Error While Updating the Data...!" })
     }
 }
 
 // delete : http://localhost:3000/api/users/1
-export async function deleteUser(req, res){
+export async function deleteUser(req, res) {
     try {
         const { userId } = req.query;
 
-        if(userId){
+        if (userId) {
             const user = await Users.findByIdAndDelete(userId)
             return res.status(200).json(user)
         }
 
-        res.status(404).json({ error: "User Not Selected...!"})
+        res.status(404).json({ error: "User Not Selected...!" })
 
     } catch (error) {
         res.status(404).json({ error: "Error While Deleting the User...!" })
