@@ -5,12 +5,11 @@ import Users from '../model/user'
 export function validateUser(user) {
     console.log(user)
     const { name, avatar, email, salary, date, status } = user;
-    console.log(name, avatar, email, salary, date, status);
 
     const nameRegex = /\w{1,50}/; // nome até 50 caracteres
     const avatarRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/;
     const emailRegex = /\S{1,20}@\S{1,20}/; // email com no maximo 20 caracteres antes e depois do @
-    const dateRegex = /(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]\d{4}/;
+    const dateRegex = /\d{4}[\-](0?[1-9]|1[012])[\-](0?[1-9]|[12][0-9]|3[01])/;
     const statusRegex = /Inactive|Active/;
 
     let errors = [];
@@ -33,7 +32,7 @@ export function validateUser(user) {
     }
     if (!date || !dateRegex.test(date)) {
         console.log("Error Date", date);
-        errors.push({ key: "date", message: "A data precisa estar no formato DD/MM/YYYY" });
+        errors.push({ key: "date", message: "A data precisa estar no formato YYYY/MM/DD" });
     }
     if (!status || !statusRegex.test(status)) {
         console.log("Error - Status", status);

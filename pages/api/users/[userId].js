@@ -24,7 +24,10 @@ export default async function handler(req, res) {
 
     await runMiddleware(req, res, cors);
 
-    connectMongo().catch(() => res.status(405).json({ error: "Error in the Connection" }))
+    connectMongo().catch((e) => {
+        console.error(e);
+        res.status(405).json({ error: "Error in the Connection " + e })
+    })
 
     // type of request
     const { method } = req

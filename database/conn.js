@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 const connectMongo = async () => {
     try {
-        const { connection } = await mongoose.connect(process.env.MONGO_URI)
+        console.log("Conectando: ", process.env.MONGO_URI || 'mongodb+srv://joaquim:1458691010@cluster0.nyase.mongodb.net/?retryWrites=true&w=majority');
+        const { connection } = await mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://joaquim:1458691010@cluster0.nyase.mongodb.net/?retryWrites=true&w=majority')
 
         if (connection.readyState == 1) {
             console.log("Database Connected")
